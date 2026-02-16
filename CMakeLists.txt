@@ -47,7 +47,6 @@ if(WIN32)
         Userenv.lib
         Ntdll.lib
         Advapi32.lib
-        Ws2_32.lib
     )
 elseif(APPLE)
     # macOS
