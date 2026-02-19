@@ -55,22 +55,17 @@ jobs:
 
       - name: Build
         run: cmake --build build --config Release --parallel 4
-        
-      - name: List build directory (Debug)
-        if: runner.os == 'Windows'
-        run: tree build /F
 
       - name: Package artifacts (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          # 將路徑修正為 build\Release\*
-          Compress-Archive -Path build\Release\* -DestinationPath Alt-Denoiser-${{ matrix.name }}.zip
+          Compress-Archive -Path "build\AltDenoiserPlugin_artefacts\Release\*" -DestinationPath "Alt-Denoiser-${{ matrix.name }}.zip"
 
       - name: Package artifacts (macOS / Linux)
         if: runner.os != 'Windows'
         run: |
-          cd build/AltDenoiser_artefacts/Release
+          cd build/AltDenoiserPlugin_artefacts/Release
           zip -r ${{ github.workspace }}/Alt-Denoiser-${{ matrix.name }}.zip .
 
       - name: Upload artifact
